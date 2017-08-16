@@ -15,6 +15,7 @@ def sendmail(subject,msg,toaddrs,fromaddr,smtpaddr,password,filename):
     @fromaddr:发信人的邮箱地址
     @smtpaddr:smtp服务地址，可以在邮箱看，比如163邮箱为smtp.163.com
     @password:发信人的邮箱密码
+    @filename:附件名称
     '''
     mail_msg = MIMEMultipart()
     '''
