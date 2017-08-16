@@ -10,14 +10,15 @@ __version__ = 1.0
 import sys
 import os
 import json
-import ftplib import FTP
+import socket
+from ftplib import FTP
 
 
 _XFER_FILE = 'FILE'
 _XFER_DIR = 'DIR'
 
 class Xfer(object):
-    '''
+    '''''
     @note: upload local file or dirs recursively to ftp server
     '''
     def __init__(self):
@@ -28,23 +29,34 @@ class Xfer(object):
     
     def setFtpParams(self, ip, uname, pwd, port = 21, timeout = 60):
         self.ip = ip
-        self.name = name
+        self.uname = uname
         self.pwd = pwd
         self.port = port 
         self.timeout = timeout
 
+    #def initEnv(self):
+    #    if self.ftp is None:
+    #        self.ftp = FTP()
+    #        print '### connect ftp server: %s ...' % self.ip
+    #        self.ftp.connect(self.ip, self.port, self.timeout)
+    #        self.ftp.login(self.uname, self.pwd)
+    #        print self.ftp.getwelcome()
+
     def initEnv(self):
-        if self.ftp is None:
-            self.ftp = FTP()
-            print '### connect ftp server: %s ...' % self.ip
+        self.ftp = FTP()
+        try:
+            print '### Good Connect ftp server: %s ...' % self.ip
             self.ftp.connect(self.ip, self.port, self.timeout)
             self.ftp.login(self.uname, self.pwd)
             print self.ftp.getwelcome()
+        except socket.error:
+            print '### connect failed and Closed ###'
+            exit()
 
     def clearEnv(self):
         if self.ftp:
             self.ftp.close()
-            print '### disconnect ftp server: %s!'  % self.ip
+            print '### Finished and Closed ftp server (%s) Bye!'  % self.ip
             self.ftp = None
     
     def uploadDir(self, localdir='./', remotedir='./'):
@@ -92,6 +104,6 @@ if __name__ == '__main__':
     srcDir = r"/srv/test"
     srcFile = r'/srv/test/client1.py'
     xfer = Xfer()
-    xfer.setFtpParams('127.0.0.1', 'ftptest', '123123')
+    xfer.setFtpParams('127.0.0.1', 'ftptest', 'ftp123123')
     xfer.upload(srcDir)
     xfer.upload(srcFile)
