@@ -13,6 +13,9 @@ import json
 import socket
 from ftplib import FTP
 
+'''
+向ftp服务器上传指定文件或者指定目录下的所有文件和目录，适用windows环境
+'''
 
 _XFER_FILE = 'FILE'
 _XFER_DIR = 'DIR'
