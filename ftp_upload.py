@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding:utf8 -*-
 
-__author__ = 'mashiping'
-__mail__ = 'mashiping@100tal.com'
+__author__ = 'msp'
+__mail__ = 'xxxxxx@xxx.com'
 __date__ = '2017-08-15'
 __version__ = 1.0
 
