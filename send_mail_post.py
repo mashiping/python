@@ -32,9 +32,16 @@ class SendMailHandler(RequestHandler):
             ret = self.__do_handle(rev,sub,body,filename)
             self.finish()
 
+    def __filetype(self, filename):
+        if os.path.isfile(filename):
+            index = filename.rfind('\\')
+            if index == -1:
+                index = filename.rfind('/')
+            return filename[index+1:]
+    
     def __do_handle(self,rev,sub,body,filename):
         mail_server = 'smtp.163.com'
-        mail_user = 'xxxxxxxxxx@163.com'
+        mail_user = 'xxxxxxxxx@163.com'
         mail_pwd = 'xxxxxxxxx'
         msg = MIMEMultipart()
         msg['Subject'] = sub
@@ -46,7 +53,7 @@ class SendMailHandler(RequestHandler):
 
         att = MIMEText(open(filename, 'rb').read(), 'base64', 'utf-8')
         att["Content-Type"] = 'application/octet-stream'
-        att["Content-Disposition"] = 'attachment; filename="a.txt"'
+        att["Content-Disposition"] = 'attachment; filename="%s"' % self.__filetype(filename)
         msg.attach(att)
 
         try:
@@ -57,7 +64,6 @@ class SendMailHandler(RequestHandler):
             session.quit()
         except:
             print "Error: unable to send email"
-            #print traceback.format_exc()
 
 settings = {}
 
