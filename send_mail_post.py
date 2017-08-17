@@ -1,6 +1,13 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 
+'''
+@说明：
+接收post传过来的邮件地址，邮件标题，邮件内容，以及附件，然后发送邮件
+使用以下方式测试：
+curl -d "tos=111111111@qq.com&subject=测试标题&content=测试内容&filename=/srv/test/a.txt" "http://127.0.0.1:6666/mail"
+'''
+
 import re,os,sys
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
@@ -27,8 +34,8 @@ class SendMailHandler(RequestHandler):
 
     def __do_handle(self,rev,sub,body,filename):
         mail_server = 'smtp.163.com'
-        mail_user = 'mashiping2010@163.com'
-        mail_pwd = 'Msp196201117'
+        mail_user = 'xxxxxxxxxx@163.com'
+        mail_pwd = 'xxxxxxxxx'
         msg = MIMEMultipart()
         msg['Subject'] = sub
         msg['From'] = mail_user
