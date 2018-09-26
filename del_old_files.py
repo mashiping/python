@@ -15,6 +15,6 @@ def del_files(path):
             #   print 'file_name:',name
 
 if __name__ == "__main__":
-    path = '/var/cron/zyl/test'
+    path = '/var/cron/test'
     daytime = str(time.strftime("%Y-%m-%d", time.localtime()))
     del_files(path)
